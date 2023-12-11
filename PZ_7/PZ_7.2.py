@@ -3,20 +3,23 @@
 # символа строки, нарушающего алфавитный порядок.
 def check_alphabetic_order(s):
     try:
+        # Проверка на пустую строку
         if not s:
             return -1
+        # Цикл для проверки алфавитного порядка строки
         for i in range(len(s) - 1):
-            if s[i] > s[i + 1]:
+            if ord(s[i]) > ord(s[i + 1]):
                 return i + 1
         return 0
-    except Exception as error:
+    except ValueError as error:
         print(f"Ошибка: {error}")
 
 input_str = input("Введите строку: ")  # Ввод пользователем строки
+# Присваиваем переменной функцию с аргументом input_str
 result = check_alphabetic_order(input_str)
 if result == -1:
     print("Ошибка. Строка пуста")
 elif result != 0:
-    print(f"Номер первого символа, нарушающего алфавитный порядок: {result + 1}")
+    print(f"Номер первого символа, нарушающего алфавитный порядок: {result + 1}")  # Выводим номер символа
 else:
     print("Строка упорядочена по алфавиту")
