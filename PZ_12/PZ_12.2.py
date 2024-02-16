@@ -1,3 +1,6 @@
+"""
+Составить генератор (yield), который выводит из строки только цифры.
+"""
 def digit_generator(string):
     for char in string:
         if char.isdigit():
