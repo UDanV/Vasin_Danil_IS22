@@ -45,7 +45,6 @@ def findByPosition(job):
     c = con.cursor()
     c.execute('''SELECT * FROM teachingStaff WHERE job=?''', (job,))
     result = c.fetchall()
-    con.close()
     return result
 
 def findByDegree(academicDegree):
@@ -54,7 +53,6 @@ def findByDegree(academicDegree):
     c = con.cursor()
     c.execute('''SELECT * FROM teachingStaff WHERE academicDegree=?''', (academicDegree,))
     result = c.fetchall()
-    con.close()
     return result
 
 def findByPayment(payment):
@@ -71,6 +69,34 @@ def deleteByNumber(teacher_id):
     con = sq.connect("kafedra.db")
     c = con.cursor()
     c.execute('''DELETE FROM teachingStaff WHERE teacher_id=?''', (teacher_id, ))
+    con.commit()
+    con.close()
+
+def updateByNumber(teacher_id, newPayment):
+    """Обновление зарплаты по номеру"""
+    con = sq.connect("kafedra.db")
+    c = con.cursor()
+    c.execute('''EXECUTE teachingStaff
+                 SET payment = ?
+                 WHERE teacher_id = ?''', (teacher_id, newPayment))
+    con.commit()
+
+def updateByLoad(teacher_id, newLoad):
+    """Обновление нагрузки по номеру"""
+    con = sq.connect("kafedra.db")
+    c = con.cursor()
+    c.execute('''UPDATE teachingStaff
+                 SET load = ?
+                 WHERE teacher_id = ?''', (teacher_id, newLoad))
+    con.commit()
+
+def updateByJob(fullName, newJob, newDegree):
+    """Обновление должности по ФИО"""
+    con = sq.connect("kafedra.db")
+    c = con.cursor()
+    c.execute('''UPDATE teachingStaff
+                 SET job = ?, academicDegree = ?
+                 WHERE teacher_id = ?''', (fullName, newJob, newDegree))
     con.commit()
     con.close()
 
