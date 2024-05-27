@@ -1,10 +1,13 @@
+"""
+В соответствии с номером варианта перейти по ссылке на прототип. Реализовать
+его в IDE PyCharm Community с применением пакета tk. Получить интерфейс максимально
+приближенный к оригиналу (см. таблицу 1).
+"""
 import tkinter as tk
 from tkinter import ttk
 
-
 def submit_form():
     print("Форма отправлена")
-
 
 def clear_form():
     username_entry.delete(0, tk.END)
@@ -16,11 +19,9 @@ def clear_form():
         skill.set(0)
     additional_info_text.delete('1.0', tk.END)
 
-
 root = tk.Tk()
 root.title("Анкета Web-разработчика")
 
-# Создание меток и полей ввода без бордеров
 tk.Label(root, text="Регистрационное имя", background="#BFBFBF").grid(row=0, column=0, sticky='w', padx=3, pady=3)
 username_entry = tk.Entry(root, relief="solid", bd=1)
 username_entry.grid(row=0, column=1, padx=0, pady=0)
@@ -45,7 +46,6 @@ skills_vars = [tk.IntVar() for _ in skills]
 for i, skill in enumerate(skills):
     tk.Checkbutton(root, text=skill, variable=skills_vars[i]).grid(row=5 + i, column=1, sticky='w', padx=3, pady=3)
 
-# Создание фреймов для изменения фона столбцов с бордерами по условию
 for i in range(6 + len(skills)):
     if i == 0 or i in range(3, 5) or i == 12:
         red_frame_0 = tk.Frame(root, background="#D1DAC9", relief="solid", bd=1)
@@ -59,7 +59,6 @@ for i in range(6 + len(skills)):
     frame_3 = tk.Frame(root, background="#BFBFBF")
     frame_3.grid(row=i, column=3, sticky='nsew')
 
-# Повторное размещение меток и полей ввода без бордеров
 tk.Label(root, text="Регистрационное имя", background="#D1DAC9").grid(row=0, column=0, sticky='w', padx=3, pady=3)
 username_entry = tk.Entry(root)
 username_entry.grid(row=0, column=1, sticky='w', padx=5)
@@ -91,18 +90,15 @@ tk.Label(root, text="Дополнительные сведения\nо себе"
 additional_info_text = tk.Text(root, width=30, height=4)
 additional_info_text.grid(row=5 + len(skills), column=1, columnspan=3, padx=3, pady=3, sticky='w')
 
-# Создание фрейма для кнопок с бордером сверху
 button_frame = tk.Frame(root, highlightbackground="black", highlightthickness=0)
 button_frame.grid(row=6 + len(skills), column=0, columnspan=1, sticky='ew')
 
-# Кнопки в отдельном фрейме, расположенные рядом слева
 submit_button = tk.Button(button_frame, text="зарегистрировать", command=submit_form)
 submit_button.grid(row=1, column=0, sticky='w', padx=5, pady=5)
 
 clear_button = tk.Button(button_frame, text="очистить форму", command=clear_form)
 clear_button.grid(row=1, column=1, sticky='w', padx=5, pady=5)
 
-# Настройка столбцов для растяжения
 root.grid_columnconfigure(0, weight=1)
 root.grid_columnconfigure(1, weight=1)
 root.grid_columnconfigure(2, weight=1)
